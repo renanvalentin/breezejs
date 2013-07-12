@@ -17,6 +17,19 @@
     background-image: linear-gradient(@origin, @start, @stop);
 }
 
+
+/* THEME 
+   ---------------------------------- */
+
+@modal-base-color: #BB9A2F;
+@h1-color: white;
+
+@submit-bg: #c3ac4c;
+@submit-color: white;
+@submit-text-shadow: rgb(146, 126, 40);
+@submit-box-shadow: rgb(162, 162, 162);
+@submit-box-shadow-inset: rgb(255, 232, 137);
+
 /* ELEMENTS 
    ---------------------------------- */
 
@@ -34,7 +47,7 @@ h1 {
     font-family: Arial;
     font-weight: 500;
     .gradient;
-    color: #FFF;
+    color: @h1-color;
     padding: 0 10px;
     height: 36px;
     line-height: 36px;
@@ -56,8 +69,6 @@ select {
 
 /* MODAL 
    ---------------------------------- */
-
-@modal-base-color: #BB9A2F;
 
 .modal-overlay {
     min-width: 500px;
@@ -165,11 +176,11 @@ select {
 .form-submit {
     width: 65px;
     height: 25px;
-    background: #c3ac4c;
-    color: white;
+    background: @submit-bg;
+    color: @submit-color;
     font-size: 12px;
-    text-shadow: 0 0 5px rgb(146, 126, 40);
-    box-shadow: 0 0 5px rgb(162, 162, 162), inset 0 2px 1px rgb(255, 232, 137);
+    text-shadow: 0 0 5px @submit-text-shadow;
+    box-shadow: 0 0 5px @submit-box-shadow, inset 0 2px 1px @submit-box-shadow-inset;
     float: right;
 }
 
@@ -209,4 +220,13 @@ select {
 
 .without-input {
     margin-left: 115px;
+}
+
+/* MEDIA QUERIES 
+   ---------------------------------- */
+
+@media screen and (max-height:700px) {
+    .modal-wrapp {
+        top: 0 !important;
+    }
 }

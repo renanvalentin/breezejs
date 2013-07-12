@@ -1,5 +1,7 @@
 ﻿/* MIXIN 
    ---------------------------------- */
+/* THEME 
+   ---------------------------------- */
 /* ELEMENTS 
    ---------------------------------- */
 * {
@@ -19,7 +21,7 @@ h1 {
   background-image: -o-linear-gradient(top, #9a7f25, #bb9a2f);
   background-image: -ms-linear-gradient(top, #9a7f25, #bb9a2f);
   background-image: linear-gradient(top, #9a7f25, #bb9a2f);
-  color: #FFF;
+  color: #ffffff;
   padding: 0 10px;
   height: 36px;
   line-height: 36px;
@@ -124,7 +126,7 @@ select {
   width: 65px;
   height: 25px;
   background: #c3ac4c;
-  color: white;
+  color: #ffffff;
   font-size: 12px;
   text-shadow: 0 0 5px #927e28;
   box-shadow: 0 0 5px #a2a2a2, inset 0 2px 1px #ffe889;
@@ -159,4 +161,11 @@ select {
 }
 .without-input {
   margin-left: 115px;
+}
+/* MEDIA QUERIES 
+   ---------------------------------- */
+@media screen and (max-height: 700px) {
+  .modal-wrapp {
+    top: 0 !important;
+  }
 }
