@@ -1,4 +1,8 @@
-﻿* {
+﻿/* MIXIN 
+   ---------------------------------- */
+/* ELEMENTS 
+   ---------------------------------- */
+* {
   box-sizing: border-box;
 }
 butotn,
@@ -20,6 +24,28 @@ h1 {
   height: 36px;
   line-height: 36px;
   border-radius: 5px;
+}
+label {
+  width: 90px;
+  display: inline-block;
+}
+input,
+select {
+  height: 30px;
+  border: 2px solid #bb9a2f;
+  border-radius: 5px;
+  width: 288px;
+}
+/* MODAL 
+   ---------------------------------- */
+.modal-overlay {
+  min-width: 500px;
+  min-height: 500px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 .modal-wrapp {
   width: 450px;
@@ -46,10 +72,6 @@ h1 {
 .modal-wrapp.step2 #step2 {
   display: block;
 }
-#step1,
-#step2 {
-  display: none;
-}
 .modal-close-button {
   width: 25px;
   height: 25px;
@@ -66,34 +88,12 @@ h1 {
 .modal-content {
   padding: 0 20px;
 }
-label {
-  width: 90px;
-  display: inline-block;
+#step1,
+#step2 {
+  display: none;
 }
-input,
-select {
-  height: 30px;
-  border: 2px solid #bb9a2f;
-  border-radius: 5px;
-  width: 288px;
-}
-.button-ok {
-  width: 40px;
-  height: 20px;
-  background: #E8DDBD;
-  border-radius: 5px;
-  color: #7E755D;
-  font-size: 14px;
-  float: right;
-  margin-top: 5px;
-}
-.ipt-250px {
-  width: 250px;
-}
-.main {
-  min-width: 500px;
-  min-height: 700px;
-}
+/* FORM 
+   ---------------------------------- */
 .form-group {
   border-top: 1px dashed #8d8d8d;
   padding: 5px 0;
@@ -129,6 +129,21 @@ select {
   text-shadow: 0 0 5px #927e28;
   box-shadow: 0 0 5px #a2a2a2, inset 0 2px 1px #ffe889;
   float: right;
+}
+/* MISC 
+   ---------------------------------- */
+.button-ok {
+  width: 40px;
+  height: 20px;
+  background: #E8DDBD;
+  border-radius: 5px;
+  color: #7E755D;
+  font-size: 14px;
+  float: right;
+  margin-top: 5px;
+}
+.ipt-250px {
+  width: 250px;
 }
 .disable-text {
   color: #7f7f7f;

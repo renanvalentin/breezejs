@@ -1,6 +1,5 @@
-* {
-    box-sizing: border-box;
-}
+/* MIXIN 
+   ---------------------------------- */
 
 .transition (@transition) {
     -webkit-transition: @transition;
@@ -18,7 +17,12 @@
     background-image: linear-gradient(@origin, @start, @stop);
 }
 
-@modal-base-color: #BB9A2F;
+/* ELEMENTS 
+   ---------------------------------- */
+
+* {
+    box-sizing: border-box;
+}
 
 butotn,
 input[type=button] {
@@ -37,6 +41,34 @@ h1 {
     border-radius: 5px;
 }
 
+label {
+    width: 90px;
+    display: inline-block;
+}
+
+input,
+select {
+    height: 30px;
+    border: 2px solid @modal-base-color;
+    border-radius: 5px;
+    width: 288px;
+}
+
+/* MODAL 
+   ---------------------------------- */
+
+@modal-base-color: #BB9A2F;
+
+.modal-overlay {
+    min-width: 500px;
+    min-height: 500px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
 .modal-wrapp {
     width: 450px;
     left: ~"calc(100% - 50% - 450px/2)";
@@ -49,7 +81,7 @@ h1 {
         height: 130px;
         top: ~"calc(100% - 50% - 130px/2)";
 
-        
+
         #step1 {
             display: block;
         }
@@ -63,11 +95,6 @@ h1 {
             display: block;
         }
     }
-}
-
-#step1,
-#step2 {
-    display: none;
 }
 
 .modal-close-button {
@@ -90,38 +117,14 @@ h1 {
     padding: 0 20px;
 }
 
-label {
-    width: 90px;
-    display: inline-block;
+#step1,
+#step2 {
+    display: none;
 }
 
-input,
-select {
-    height: 30px;
-    border: 2px solid @modal-base-color;
-    border-radius: 5px;
-    width: 288px;
-}
 
-.button-ok {
-    width: 40px;
-    height: 20px;
-    background: #E8DDBD;
-    border-radius: 5px;
-    color: #7E755D;
-    font-size: 14px;
-    float: right;
-    margin-top: 5px;
-}
-
-.ipt-250px {
-    width: 250px;
-}
-
-.main {
-    min-width: 500px;
-    min-height: 700px;
-}
+/* FORM 
+   ---------------------------------- */
 
 .form-group {
     border-top: 1px dashed #8d8d8d;
@@ -168,6 +171,24 @@ select {
     text-shadow: 0 0 5px rgb(146, 126, 40);
     box-shadow: 0 0 5px rgb(162, 162, 162), inset 0 2px 1px rgb(255, 232, 137);
     float: right;
+}
+
+/* MISC 
+   ---------------------------------- */
+
+.button-ok {
+    width: 40px;
+    height: 20px;
+    background: #E8DDBD;
+    border-radius: 5px;
+    color: #7E755D;
+    font-size: 14px;
+    float: right;
+    margin-top: 5px;
+}
+
+.ipt-250px {
+    width: 250px;
 }
 
 .disable-text {
