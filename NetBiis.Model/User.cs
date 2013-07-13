@@ -8,6 +8,7 @@ namespace NetBiis.Models
     public class User
     {
         public long Id { get; set; }
+        public string PIN { get; set; }
 
         public string CompanyName { get; set; }
         
