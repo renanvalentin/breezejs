@@ -13,29 +13,60 @@
         metadataStore: metadataStore
     });
 
-    var user = ko.observable(),
+    var user = {
+        PIN: ko.observable('01.137.077/0007-27'),
+        CompanyName: ko.observable().extend({ required: true }),
+        Password: ko.observable().extend({ required: true }),
 
-        currentStep = ko.observable(1),
+        ReceivePromotions: ko.observable(),
+        CallSpecialist: ko.observable(),
 
-        confirmEmail = ko.observable(),
+        Adress: {
 
-        cmdConsultPIN = ko.asyncCommand({
-            execute: function (complete) {
-                getDocumentByPIN(user().PIN());
-                complete();
-            },
+            City: ko.observable().extend({ required: true }),
+            Number: ko.observable().extend({ required: true }),
+            State: ko.observable().extend({ required: true }),
+            StreetName: ko.observable().extend({ required: true }),
+            Suite: ko.observable().extend({ required: true }),
+            Zipcode: ko.observable().extend({ required: true })
+        },
 
-            canExecute: function (isExecuting) {
-                return !isExecuting && user() ? user().PIN() : false;
-            }
+        Contact: {
+
+            MainContact: ko.observable().extend({ required: true }),
+            Phone: ko.observable().extend({ required: true }),
+            Position: ko.observable().extend({ required: true })
+        },
+
+        Email: ko.observable().extend({
+            required: true,
+            email: true
         }),
 
-        searchEmail = VerifyExintingEmail;
+        confirmEmail: ko.observable().extend({ required: true })
+    },
+
+    currentStep = ko.observable(1),
+
+    confirmEmail = ko.observable(),
+
+    cmdConsultPIN = ko.asyncCommand({
+        execute: function (complete) {
+            getDocumentByPIN(user.PIN());
+            complete();
+        },
+
+        canExecute: function (isExecuting) {
+            return !isExecuting && user ? user.PIN() : false;
+        }
+    }),
+
+searchEmail = VerifyExintingEmail;
 
 
     function getDocumentByPIN() {
 
-        var query = breeze.EntityQuery.from("Document").withParameters({ pin: user().PIN() });
+        var query = breeze.EntityQuery.from("Document").withParameters({ pin: user.PIN() });
 
         return manager
             .executeQuery(query)
@@ -72,10 +103,10 @@
             decorateElement: true
         });
 
-        ko.validation.rules['exampleAsync'] = {
-            async: true, 
-            validator: function (val, otherVal, callback) { 
-                var query = breeze.EntityQuery.from("VerifyExintingEmail").withParameters({ email: user().Email() });
+        ko.validation.rules['verifyMail'] = {
+            async: true,
+            validator: function (val, otherVal, callback) {
+                var query = breeze.EntityQuery.from("VerifyExintingEmail").withParameters({ email: user.Email() });
 
                 return manager
                     .executeQuery(query)
@@ -88,13 +119,19 @@
             message: 'The mail already exists.'
         };
 
+        ko.validation.rules['mustEqual'] = {
+            validator: function (val, otherVal) {
+                return user.Email() === user.confirmEmail();
+            },
+            message: 'The mail must be equal.'
+        };
+
         ko.validation.registerExtenders();
     }
 
     var vm = {
         currentStep: currentStep,
         user: user,
-        confirmEmail: confirmEmail,
         cmdConsultPIN: cmdConsultPIN,
         searchEmail: searchEmail
     };
@@ -102,50 +139,23 @@
 
     (function init() {
         manager.fetchMetadata().done(function () {
+
             registerCustomRules();
 
-            user(manager.createEntity("User"));
+            //user(manager.createEntity("User"));
 
-            user().PIN('01.137.077/0007-27');
-
-            user().CompanyName.extend({ required: true });
-
-            user().Password.extend({ required: true });
-
-            user().Adress().City.extend({ required: true });
-            user().Adress().Number.extend({ required: true });
-            user().Adress().State.extend({ required: true });
-            user().Adress().StreetName.extend({ required: true });
-            user().Adress().Suite.extend({ required: true });
-            user().Adress().Zipcode.extend({ required: true });
-
-            user().Contact().MainContact.extend({ required: true });
-            user().Contact().Phone.extend({ required: true });
-            user().Contact().Position.extend({ required: true });
-
-            user().Email.extend({
-                required: true,
-                email: true,
-                exampleAsync: true
+            user.Email.extend({
+                verifyMail: true
             });
 
-            confirmEmail.extend({
-                validation: {
-                    validator: function (val, someOtherVal) {
-                        return user().Email() === confirmEmail();
-                    },
-                    message: 'The mail must be equal.',
-                    params: 1,
-                    rule: 'equalTo'
-                }
-            });
+            user.confirmEmail.extend({ mustEqual: true });
 
             ko.applyBindings(vm);
 
             $('.form-submit').click(function (e) {
                 e.preventDefault();
 
-                if (ko.validation.group(user())().length === 0) {
+                if (ko.validation.group(vm.user, { deep: true })().length === 0) {
                     $('form').submit();
                 } else {
                     alert('Form invalid!');
