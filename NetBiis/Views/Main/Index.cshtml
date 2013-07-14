@@ -28,125 +28,127 @@
             <button class="modal-close-button">
                 x</button>
             <div class="modal-content" data-bind="with: user">
-                <div class="form" id="step1">
-                    <h1>New User</h1>
-                    <div class="row">
-                        <div class="form-error-message" data-validation="ein">
-                            EIN not found. Please inform a valid EIN number.
-                        </div>
-                        <label>
-                            PIN</label>
-                        <input type="text" placeholder="01.137.077/0007-27" class="ipt-250px" data-bind="value: PIN" />
-                        <input type="button" value="ok" class="button-ok" data-bind="command: $root.cmdConsultPIN, activity: $root.cmdConsultPIN.isExecuting" />
-                    </div>
-                </div>
-                <div class="form" id="step2">
-                    <h1>New User</h1>
-                    <div class="form-group">
-                        <div class="form-row">
+                <form method="post">
+                    <div class="form" id="step1">
+                        <h1>New User</h1>
+                        <div class="row">
+                            <div class="form-error-message" data-validation="ein">
+                                EIN not found. Please inform a valid EIN number.
+                            </div>
                             <label>
-                                EIN:</label>
-                            <span class="disable-text" data-bind="text: PIN"></span>
+                                PIN</label>
+                            <input type="text" placeholder="01.137.077/0007-27" class="ipt-250px" data-bind="value: PIN" name="PIN" />
+                            <input type="button" value="ok" class="button-ok" data-bind="command: $root.cmdConsultPIN, activity: $root.cmdConsultPIN.isExecuting" />
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="form-row">
-                            <label class="without-input">
-                                * required fields.</label>
+                    <div class="form" id="step2">
+                        <h1>New User</h1>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <label>
+                                    EIN:</label>
+                                <span class="disable-text" data-bind="text: PIN"></span>
+                            </div>
                         </div>
-                        <div class="form-row">
-                            <label>
-                                Company name*:</label>
-                            <input type="text" placeholder="My Company" data-bind="value: CompanyName" />
+                        <div class="form-group">
+                            <div class="form-row">
+                                <label class="without-input">
+                                    * required fields.</label>
+                            </div>
+                            <div class="form-row">
+                                <label>
+                                    Company name*:</label>
+                                <input type="text" placeholder="My Company" data-bind="value: CompanyName" name="CompanyName" />
+                            </div>
+                            <div class="form-row">
+                                <label>
+                                    Street name*:</label>
+                                <input type="text" placeholder="Broad St" data-bind="value: Adress().StreetName" name="Adress.StreetName" />
+                            </div>
+                            <div class="form-row">
+                                <label>
+                                    Number*:</label>
+                                <input type="number" placeholder="55" class="w50" data-bind="value: Adress().Number" name="Adress.Number" />
+                                <label class="w70">
+                                    Suite/Apt*:</label>
+                                <input type="text" placeholder="11C" class="w160" data-bind="value: Adress().Suite" name="Adress.Suite" />
+                            </div>
+                            <div class="form-row">
+                                <label>
+                                    City*:</label>
+                                <input type="text" placeholder="New York" data-bind="value: Adress().City" name="Adress.City" />
+                            </div>
+                            <div class="form-row">
+                                <label>
+                                    State*:</label>
+                                <input type="text" placeholder="NY" data-bind="value: Adress().State" name="Adress.State" />
+                            </div>
+                            <div class="form-row">
+                                <label>
+                                    Zipcode*:</label>
+                                <input type="number" data-bind="value: Adress().Zipcode" name="Adress.Zipcode" />
+                            </div>
                         </div>
-                        <div class="form-row">
-                            <label>
-                                Street name*:</label>
-                            <input type="text" placeholder="Broad St" data-bind="value: Adress().StreetName" />
+                        <div class="form-group">
+                            <div class="form-row">
+                                <label>
+                                    Main Contact*:</label>
+                                <input type="text" placeholder="Anderson Silva" data-bind="value: Contact().MainContact" name="Contact.MainContact" />
+                            </div>
+                            <div class="form-row">
+                                <label>
+                                    Position*:</label>
+                                <input type="text" placeholder="Seller" data-bind="value: Contact().Position" name="Contact.Position" />
+                            </div>
+                            <div class="form-row">
+                                <label>
+                                    E-mail*:</label>
+                                <input type="email" placeholder="renan.valentin@outlook.com" data-bind="value: Email" name="Email" />
+                            </div>
+                            <div class="form-row">
+                                <label>
+                                    Confirm E-mail*:</label>
+                                <input type="email" placeholder="renan.valentin@outlook.com" data-bind="value: $root.confirmEmail" />
+                            </div>
+                            <div class="form-row">
+                                <label>
+                                    Password*:</label>
+                                <input type="password" placeholder="****" data-bind="value: Password" name="Password" />
+                            </div>
+                            <div class="form-row">
+                                <label>
+                                    Phone*:</label>
+                                <input type="tel" placeholder="17 9999 9999" data-bind="value: Contact().Phone" name="Contact.Phone" />
+                            </div>
                         </div>
-                        <div class="form-row">
-                            <label>
-                                Number*:</label>
-                            <input type="number" placeholder="55" class="w50" data-bind="value: Adress().Number" />
-                            <label class="w70">
-                                Suite/Apt*:</label>
-                            <input type="text" placeholder="11C" class="w160" data-bind="value: Adress().Suite" />
+                        <div class="form-group">
+                            <div class="form-row with-checkbox">
+                                <input type="checkbox" name="ReceivePromotions" data-bind="checked: ReceivePromotions" />
+                                <label for="ReceivePromotions">
+                                    I want to receive <b>Promotions</b> by email.</label>
+                            </div>
+                            <div class="form-row with-checkbox">
+                                <input type="checkbox" name="CallSpecialist" data-bind="checked: CallSpecialist" />
+                                <label for="CallSpecialist">
+                                    <b>I want to be called by a specialist.</b></label>
+                            </div>
                         </div>
-                        <div class="form-row">
-                            <label>
-                                City*:</label>
-                            <input type="text" placeholder="New York" data-bind="value: Adress().City" />
-                        </div>
-                        <div class="form-row">
-                            <label>
-                                State*:</label>
-                            <input type="text" placeholder="NY" data-bind="value: Adress().State" />
-                        </div>
-                        <div class="form-row">
-                            <label>
-                                Zipcode*:</label>
-                            <input type="number" data-bind="value: Adress().Zipcode" />
+                        <div class="form-group">
+                            <div class="form-row">
+                                <input type="submit" value="SEND" class="form-submit" />
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="form-row">
-                            <label>
-                                Main Contact*:</label>
-                            <input type="text" placeholder="Anderson Silva" data-bind="value: Contact().MainContact" />
-                        </div>
-                        <div class="form-row">
-                            <label>
-                                Position*:</label>
-                            <input type="text" placeholder="Seller" data-bind="value: Contact().Position" />
-                        </div>
-                        <div class="form-row">
-                            <label>
-                                E-mail*:</label>
-                            <input type="email" placeholder="renan.valentin@outlook.com" data-bind="value: Email, event: { blur: $root.searchEmail }" />
-                        </div>
-                        <div class="form-row">
-                            <label>
-                                Confirm E-mail*:</label>
-                            <input type="email" placeholder="renan.valentin@outlook.com" data-bind="value: $root.confirmEmail" />
-                        </div>
-                        <div class="form-row">
-                            <label>
-                                Password*:</label>
-                            <input type="password" placeholder="****" data-bind="value: Password" />
-                        </div>
-                        <div class="form-row">
-                            <label>
-                                Phone*:</label>
-                            <input type="tel" placeholder="17 9999 9999" data-bind="value: Contact().Phone" />
-                        </div>
-                    </div>
-                      <div class="form-group">
-                        <div class="form-row with-checkbox">
-                            <input type="checkbox" name="ReceivePromotions" data-bind="value: ReceivePromotions" />
-                            <label for="ReceivePromotions">
-                                I want to receive <b>Promotions</b> by email.</label>
-                        </div>
-                        <div class="form-row with-checkbox">
-                            <input type="checkbox" name="CallSpecialist" data-bind="value: CallSpecialist" />
-                            <label for="CallSpecialist">
-                                <b>I want to be called by a specialist.</b></label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-row">
-                            <input type="button" value="SEND" class="form-submit" data-bind="command: $root.cmdSave, activity: $root.cmdSave.isExecuting" />
-                        </div>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
     @Scripts.Render("~/bundles/jquery")
     <!--3rd party library scripts -->
 
-    <script src="/Scripts/knockout-2.3.0.js"></script>
+    <script src="/Scripts/knockout-2.3.0.debug.js"></script>
     <script src="/Scripts/knockout.command.js"></script>
-    <script src="/Scripts/knockout.validation.js"></script>
+    <script src="/Scripts/knockout.validation.debug.js"></script>
     <script src="/Scripts/q.js"></script>
     <script src="/Scripts/breeze.debug.js"></script>
 

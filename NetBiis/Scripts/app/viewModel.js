@@ -17,8 +17,6 @@
 
         currentStep = ko.observable(1),
 
-        existingMail = false,
-
         confirmEmail = ko.observable(),
 
         cmdConsultPIN = ko.asyncCommand({
@@ -29,17 +27,6 @@
 
             canExecute: function (isExecuting) {
                 return !isExecuting && user() ? user().PIN() : false;
-            }
-        }),
-
-        cmdSave = ko.asyncCommand({
-            execute: function (complete) {
-                saveChanges();
-                complete();
-            },
-
-            canExecute: function (isExecuting) {
-                return !isExecuting;
             }
         }),
 
@@ -73,22 +60,9 @@
             .then(querySucceeded);
 
         function querySucceeded(data) {
-            if (data.results[0]) {
-
-            }
+            existingMail(!data.results[0]);
+            user.isValid();
         }
-    }
-
-    function saveChanges() {
-        if (!user().entityAspect.validateEntity()) {
-            console.log('adsf');
-        } else {
-            console.log('f');
-        }
-
-        //return manager.saveChanges()
-        //    .then(function () { logger.success("changes saved"); })
-        //    .fail(saveFailed);
     }
 
     function registerCustomRules() {
@@ -97,6 +71,24 @@
             writeInputAttributes: true,
             decorateElement: true
         });
+
+        ko.validation.rules['exampleAsync'] = {
+            async: true, 
+            validator: function (val, otherVal, callback) { 
+                var query = breeze.EntityQuery.from("VerifyExintingEmail").withParameters({ email: user().Email() });
+
+                return manager
+                    .executeQuery(query)
+                    .then(querySucceeded);
+
+                function querySucceeded(data) {
+                    callback({ isValid: !data.results[0], message: 'The mail already exists.' });
+                }
+            },
+            message: 'The mail already exists.'
+        };
+
+        ko.validation.registerExtenders();
     }
 
     var vm = {
@@ -104,7 +96,6 @@
         user: user,
         confirmEmail: confirmEmail,
         cmdConsultPIN: cmdConsultPIN,
-        cmdSave: cmdSave,
         searchEmail: searchEmail
     };
 
@@ -117,9 +108,7 @@
 
             user().PIN('01.137.077/0007-27');
 
-            // user().Document.extend({ required: true });
             user().CompanyName.extend({ required: true });
-         
 
             user().Password.extend({ required: true });
 
@@ -134,12 +123,10 @@
             user().Contact().Phone.extend({ required: true });
             user().Contact().Position.extend({ required: true });
 
-            user().Email.extend({ required: true, email: true, validation: {
-                validator: function (val, someOtherVal) {
-                    return user().Email() === confirmEmail();
-                },
-                message: 'The mail already exists.',
-                params: 5
+            user().Email.extend({
+                required: true,
+                email: true,
+                exampleAsync: true
             });
 
             confirmEmail.extend({
@@ -148,11 +135,22 @@
                         return user().Email() === confirmEmail();
                     },
                     message: 'The mail must be equal.',
-                    params: 5
+                    params: 1,
+                    rule: 'equalTo'
                 }
             });
 
             ko.applyBindings(vm);
+
+            $('.form-submit').click(function (e) {
+                e.preventDefault();
+
+                if (ko.validation.group(user())().length === 0) {
+                    $('form').submit();
+                } else {
+                    alert('Form invalid!');
+                }
+            });
         });
 
     })();

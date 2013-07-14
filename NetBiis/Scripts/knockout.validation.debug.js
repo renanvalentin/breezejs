@@ -408,7 +408,7 @@
                 ko.utils.arrayForEach(html5Attributes, function (attr) {
                     var params;
                     var ctx = ko.utils.arrayFirst(contexts, function (ctx) {
-                        return ctx.rule.toLowerCase() === attr.toLowerCase();
+                        return ctx.rule.toString().toLowerCase() === attr.toString().toLowerCase();
                     });
 
                     if (!ctx)
