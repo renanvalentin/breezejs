@@ -30,6 +30,12 @@
 @submit-box-shadow: rgb(162, 162, 162);
 @submit-box-shadow-inset: rgb(255, 232, 137);
 
+@disabled-button: #F5F5F5;
+@disabled-button-border: rgb(216, 216, 216);
+
+@validation-bg: #f9dad5;
+@validation-color: #da0000;
+
 /* ELEMENTS 
    ---------------------------------- */
 
@@ -37,9 +43,15 @@
     box-sizing: border-box;
 }
 
-butotn,
+button,
 input[type=button] {
     border: none;
+
+    &[disabled] {
+        background: @disabled-button;
+        background: #F5F5F5;
+        border: 1px solid @disabled-button-border;
+    }
 }
 
 h1 {
@@ -144,6 +156,7 @@ select {
 
 .form-row {
     padding: 5px 0;
+    position: relative;
 
     label {
         font-weight: bold;
@@ -184,6 +197,34 @@ select {
     float: right;
 }
 
+.form-error-message,
+.validationMessage {
+    border-radius: 5px;
+    background-color: @validation-bg;
+    color: @validation-color;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.form-error-message {
+    display: none;
+    margin-bottom: 5px;
+    margin-top: -11px;
+}
+
+.validationMessage {
+    position: absolute;
+    top: -12px;
+    width: 220px;
+    right: 0;
+}
+
+
+.validationElement{
+    border: 1px solid red;
+}
+
 /* MISC 
    ---------------------------------- */
 
@@ -220,6 +261,12 @@ select {
 
 .without-input {
     margin-left: 115px;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
 }
 
 /* MEDIA QUERIES 

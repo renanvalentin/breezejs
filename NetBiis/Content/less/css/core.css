@@ -7,9 +7,15 @@
 * {
   box-sizing: border-box;
 }
-butotn,
+button,
 input[type=button] {
   border: none;
+}
+button[disabled],
+input[type=button][disabled] {
+  background: #f5f5f5;
+  background: #F5F5F5;
+  border: 1px solid #d8d8d8;
 }
 h1 {
   font-size: 22px;
@@ -102,6 +108,7 @@ select {
 }
 .form-row {
   padding: 5px 0;
+  position: relative;
 }
 .form-row label {
   font-weight: bold;
@@ -132,6 +139,29 @@ select {
   box-shadow: 0 0 5px #a2a2a2, inset 0 2px 1px #ffe889;
   float: right;
 }
+.form-error-message,
+.validationMessage {
+  border-radius: 5px;
+  background-color: #f9dad5;
+  color: #da0000;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 5px;
+}
+.form-error-message {
+  display: none;
+  margin-bottom: 5px;
+  margin-top: -11px;
+}
+.validationMessage {
+  position: absolute;
+  top: -12px;
+  width: 220px;
+  right: 0;
+}
+.validationElement {
+  border: 1px solid red;
+}
 /* MISC 
    ---------------------------------- */
 .button-ok {
@@ -161,6 +191,11 @@ select {
 }
 .without-input {
   margin-left: 115px;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 /* MEDIA QUERIES 
    ---------------------------------- */
